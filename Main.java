@@ -9,7 +9,6 @@ to do
 * delete function
 * update function
 * add exception on while function in the main
-* upload to csv file
 *JUnit testing
 
 * */
@@ -17,6 +16,8 @@ to do
 
 package librarySystem;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,6 +29,7 @@ public class Main{
   public static ArrayList<StudentEnrolment> seList = new ArrayList<>();
 
     public static void main(String[] args){
+
         Semester semesterFirst = new Semester();
         semesterFirst.setSem("2021A");
         Semester semesterSecond = new Semester();
@@ -116,6 +118,10 @@ public class Main{
                     //deleteEnrollInfo();
                     break;
                 }
+                case "8" : {
+                    saveEnrolmentToFile();
+                    break;
+                }
                 default:
                     System.out.println("Wrong Input!");
                     enrolmentManual();
@@ -124,6 +130,21 @@ public class Main{
 
         }
     }
+
+        public static void saveEnrolmentToFile(){
+            try{
+                FileWriter fileWriter = new FileWriter("studentEnrolment.csv");
+                fileWriter.write(seList.toString());
+                fileWriter.close();
+                System.out.println("saved!");
+            }catch (IOException e){
+                System.out.println("Error occurred while writing customer to the file.");
+                e.printStackTrace();
+            }
+
+        }
+
+
 
     public static void enrolmentManual(){
         System.out.println("[StudentEnrolmentManager]\n" +
@@ -139,7 +160,7 @@ public class Main{
 
 
 
-    public static StudentEnrolment enrollStudent(){
+    public static void enrollStudent(){
 
         Scanner enrollInfo = new Scanner(System.in);
 
@@ -168,7 +189,6 @@ public class Main{
 
         seList.add(se);
 
-        return se;
     }
 
 
@@ -185,7 +205,7 @@ public class Main{
         }
     }
 
-    public static StudentEnrolment getOne(){
+    public static void getOne(){
         Scanner scanner = new Scanner(System.in);
         StudentEnrolment se = new StudentEnrolment();
 
@@ -211,7 +231,6 @@ public class Main{
                 }
             }
         }
-        return se;
     }
 
     public static void getAll(){
@@ -223,5 +242,4 @@ public class Main{
             System.out.println(" ");
         }
     }
-
 }
