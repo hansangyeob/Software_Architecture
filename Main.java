@@ -114,7 +114,7 @@ public class Main{
 
                 case "5" : {
                     getOne();
-                    break;
+                        break;
                 }
                 case "6" : {
                     //refer to getCustomerById() and updateCustomer() in A3!!!!!!!!!!!!!!
@@ -123,16 +123,21 @@ public class Main{
                 }
                 case "7" : {
                     deleteEnrollInfo();
-                    break;
+                        break;
                 }
                 case "8" : {
                     saveEnrolmentToFile();
-                    break;
+                        break;
+                }
+                case "0" : {
+                    System.out.println("Good bye 。。。 ");
+
+                    System.exit(0);
                 }
                 default:
                     System.out.println("Wrong Input!");
                     enrolmentManual();
-                    break;
+                        break;
             }
 
         }
