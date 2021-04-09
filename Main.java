@@ -10,7 +10,7 @@ to do
 * update function
 * add exception on while function in the main
 *JUnit testing
-
+* 10 COMMIT TO GITHUB
 * */
 
 
@@ -20,10 +20,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class Main{
 
-    //the only thing that i want in this list in 'Student'
   public static ArrayList<Student> studentList = new ArrayList<>();
   public static ArrayList<Course> courseList = new ArrayList<>();
   public static ArrayList<StudentEnrolment> seList = new ArrayList<>();
@@ -74,9 +74,15 @@ public class Main{
         courseList.add(course3);
 
 
+        System.out.println("===Student list===");
+        printStudents();
+        System.out.println("===Course list===");
+        printCourses();
+        System.out.println("");
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter 'm' to see the manual for enrolment.");
+
 
         while(true){
             String userInput = scanner.nextLine();
@@ -115,7 +121,7 @@ public class Main{
                         break;
                 }
                 case "7" : {
-                    //deleteEnrollInfo();
+                    deleteEnrollInfo();
                     break;
                 }
                 case "8" : {
@@ -134,7 +140,7 @@ public class Main{
         public static void saveEnrolmentToFile(){
             try{
                 FileWriter fileWriter = new FileWriter("studentEnrolment.csv");
-                fileWriter.write(seList.toString());
+                fileWriter.write(seList.toString()+"\n"+"\n"+"\t");
                 fileWriter.close();
                 System.out.println("saved!");
             }catch (IOException e){
@@ -153,9 +159,11 @@ public class Main{
                 "1 : Print Students\n" +
                 "2 : Print Courses\n" +
                 "3 : Enroll student in semester\n" +
-                "4 : Get all course in one semester(2021A/2021B/2021C)\n"+
-                "5 : Print Student List\n"+
-                "6 : Print Course List");
+                "4 : Get all enrolment information\n"+
+                "5 : Get all enrolment in one semester(2021A OR 2021B)\n"+
+                "6 : Update enrolment \n"+
+                "7 : Delete enrolment \n"+
+                "8 : Save \n");
     }
 
 
@@ -234,12 +242,50 @@ public class Main{
     }
 
     public static void getAll(){
+
         for(int i = 0; i < seList.size(); i++){
-            System.out.println((i+1)+".");
-            System.out.println("Semester : " + seList.get(i).getSemester());
-            System.out.println("Student ID : " + seList.get(i).getStudentID());
-            System.out.println("Course Name : " + seList.get(i).getCourseName());
-            System.out.println(" ");
+                System.out.println((i+1)+".");
+                System.out.println("Semester : " + seList.get(i).getSemester());
+                System.out.println("Student ID : " + seList.get(i).getStudentID());
+                System.out.println("Course Name : " + seList.get(i).getCourseName());
+                System.out.println(" ");
+            }
+        if(seList.size()==0){
+            System.out.println("The enrolment list is empty.");
+            System.out.println("Press '3' to enroll the student.");
+
+
         }
     }
+
+    public static void deleteEnrollInfo() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Which semester you want to delete?");
+        String userInputSemester = scanner.nextLine();
+
+            Predicate<StudentEnrolment> condition = seList -> seList.getSemester().startsWith("2021A");
+            Predicate<StudentEnrolment> condition1 = seList -> seList.getSemester().startsWith("2021B");
+
+            switch (userInputSemester){
+                case "2021A" : {
+                    seList.removeIf(condition);
+                    System.out.println("2021A enrolment deleted successfully.");
+                    break;
+                }
+                case "2021B": {
+                    seList.removeIf(condition1);
+                    System.out.println("2021A enrolment deleted successfully.");
+                    break;
+                }
+                default:{
+                    System.out.println("Wrong input!");
+                    enrolmentManual();
+                    break;
+                }
+            }
+
+    }
+
+
 }
