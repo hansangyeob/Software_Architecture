@@ -1,4 +1,4 @@
-package librarySystem;
+package A1;
 
 public class Course {
     private String CourseId;

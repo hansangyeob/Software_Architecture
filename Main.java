@@ -1,3 +1,5 @@
+package A1;
+
 /*
 .Assignment1.
 Name : Han sang yeob
@@ -5,16 +7,12 @@ ID: s3821179
 */
 
 /*
-to do
-* delete function
-* update function
+to do list
 * add exception on while function in the main
 *JUnit testing
 * 10 COMMIT TO GITHUB
 * */
 
-
-package librarySystem;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,9 +22,9 @@ import java.util.function.Predicate;
 
 public class Main{
 
-  public static ArrayList<Student> studentList = new ArrayList<>();
-  public static ArrayList<Course> courseList = new ArrayList<>();
-  public static ArrayList<StudentEnrolment> seList = new ArrayList<>();
+    public static ArrayList<Student> studentList = new ArrayList<>();
+    public static ArrayList<Course> courseList = new ArrayList<>();
+    public static ArrayList<StudentEnrolment> seList = new ArrayList<>();
 
     public static void main(String[] args){
 
@@ -89,31 +87,31 @@ public class Main{
 
             switch (userInput){
                 case "m":{
-                        enrolmentManual();
-                        break;
+                    enrolmentManual();
+                    break;
                 }
                 case "1" : {
                     printStudents();
-                        break;
+                    break;
                 }
                 case "2" : {
                     printCourses();
-                        break;
+                    break;
                 }
 
                 case "3" :{
                     enrollStudent();
-                        break;
+                    break;
                 }
 
                 case "4" :{
                     getAll();
-                        break;
+                    break;
                 }
 
                 case "5" : {
                     getOne();
-                        break;
+                    break;
                 }
                 case "6" : {
                     //refer to getCustomerById() and updateCustomer() in A3!!!!!!!!!!!!!!
@@ -123,11 +121,11 @@ public class Main{
                 }
                 case "7" : {
                     deleteEnrollInfo();
-                        break;
+                    break;
                 }
                 case "8" : {
                     saveEnrolmentToFile();
-                        break;
+                    break;
                 }
                 case "0" : {
                     System.out.println("Good bye 。。。 ");
@@ -137,34 +135,34 @@ public class Main{
                 default:
                     System.out.println("Wrong Input!");
                     enrolmentManual();
-                        break;
+                    break;
             }
 
         }
     }
 
-        public static void saveEnrolmentToFile(){
-            try{
-                FileWriter fileWriter = new FileWriter("studentEnrolment.csv");
-             //   String ls =System.lineSeparator();
-                for(int i = 0; i < seList.size();i++) {
-                    fileWriter.write("  "+i+". ");
-                    fileWriter.write(seList.get(i).getSemester());
-                    fileWriter.write(" / ");
-                    fileWriter.write(seList.get(i).getStudentID());
-                    fileWriter.write(" / ");
-                    fileWriter.write(seList.get(i).getCourseName());
-                    fileWriter.write(System.lineSeparator());
-                }
-
-                fileWriter.close();
-                System.out.println("saved!");
-            }catch (IOException e){
-                System.out.println("Error occurred while writing customer to the file.");
-                e.printStackTrace();
+    public static void saveEnrolmentToFile(){
+        try{
+            FileWriter fileWriter = new FileWriter("studentEnrolment.csv");
+            //   String ls =System.lineSeparator();
+            for(int i = 0; i < seList.size();i++) {
+                fileWriter.write("  "+i+". ");
+                fileWriter.write(seList.get(i).getSemester());
+                fileWriter.write(" / ");
+                fileWriter.write(seList.get(i).getStudentID());
+                fileWriter.write(" / ");
+                fileWriter.write(seList.get(i).getCourseName());
+                fileWriter.write(System.lineSeparator());
             }
 
+            fileWriter.close();
+            System.out.println("saved!");
+        }catch (IOException e){
+            System.out.println("Error occurred while writing customer to the file.");
+            e.printStackTrace();
         }
+
+    }
 
 
 
@@ -205,7 +203,7 @@ public class Main{
                 se.setCourseName(Input);
         }
 
-        System.out.println("semester: (2021A/2021B)" );
+        System.out.println("Semester: (2021A/2021B)" );
         String sem = enrollInfo.nextLine();
         se.setSemester(sem);
 
@@ -231,7 +229,6 @@ public class Main{
 
     public static void getOne(){
         Scanner scanner = new Scanner(System.in);
-        StudentEnrolment se = new StudentEnrolment();
 
         System.out.println("Which semester you want to get the data?");
         String userInputSemester = scanner.nextLine();
@@ -245,6 +242,7 @@ public class Main{
                     System.out.println(" ");
                 }
             }
+
         }else{
             System.out.println("===List of student in 2021B===");
             for (StudentEnrolment studentEnrolment : seList) {
@@ -260,12 +258,13 @@ public class Main{
     public static void getAll(){
 
         for(int i = 0; i < seList.size(); i++){
-                System.out.println((i+1)+".");
-                System.out.println("Semester : " + seList.get(i).getSemester());
-                System.out.println("Student ID : " + seList.get(i).getStudentID());
-                System.out.println("Course Name : " + seList.get(i).getCourseName());
-                System.out.println(" ");
-            }
+            System.out.println((i+1)+".");
+            System.out.println("Semester : " + seList.get(i).getSemester());
+            System.out.println("Student ID : " + seList.get(i).getStudentID());
+            System.out.println("Course Name : " + seList.get(i).getCourseName());
+            System.out.println(" ");
+        }
+
         if(seList.size()==0){
             System.out.println("The enrolment list is empty.");
             System.out.println("Press '3' to enroll the student.");
@@ -280,26 +279,26 @@ public class Main{
         System.out.println("Which semester you want to delete?");
         String userInputSemester = scanner.nextLine();
 
-            Predicate<StudentEnrolment> condition = seList -> seList.getSemester().startsWith("2021A");
-            Predicate<StudentEnrolment> condition1 = seList -> seList.getSemester().startsWith("2021B");
+        Predicate<StudentEnrolment> condition = seList -> seList.getSemester().startsWith("2021A");
+        Predicate<StudentEnrolment> condition1 = seList -> seList.getSemester().startsWith("2021B");
 
-            switch (userInputSemester){
-                case "2021A" : {
-                    seList.removeIf(condition);
-                    System.out.println("2021A enrolment deleted successfully.");
-                    break;
-                }
-                case "2021B": {
-                    seList.removeIf(condition1);
-                    System.out.println("2021A enrolment deleted successfully.");
-                    break;
-                }
-                default:{
-                    System.out.println("Wrong input!");
-                    enrolmentManual();
-                    break;
-                }
+        switch (userInputSemester){
+            case "2021A" : {
+                seList.removeIf(condition);
+                System.out.println("2021A enrolment deleted successfully.");
+                break;
             }
+            case "2021B": {
+                seList.removeIf(condition1);
+                System.out.println("2021A enrolment deleted successfully.");
+                break;
+            }
+            default:{
+                System.out.println("Wrong input!");
+                enrolmentManual();
+                break;
+            }
+        }
 
     }
 
@@ -321,9 +320,9 @@ public class Main{
     }
 
     public static StudentEnrolment getStudentById(String studentId){
-        for (int i = 0; i < seList.size(); i++) {
-            if(studentId.equals(seList.get(i).getStudentID())){
-                return seList.get(i);
+        for (StudentEnrolment studentEnrolment : seList) {
+            if (studentId.equals(studentEnrolment.getStudentID())) {
+                return studentEnrolment;
             }
         }
         return null;
@@ -361,6 +360,7 @@ public class Main{
                     isDone = true;
                     break;
                 }
+
                 default : {
                     System.out.println("Wrong Input !");
                     printCustomerUpdateManual();

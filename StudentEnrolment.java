@@ -1,4 +1,4 @@
-package librarySystem;
+package A1;
 
 public class StudentEnrolment {
     private String studentID;
@@ -38,3 +38,4 @@ public class StudentEnrolment {
         return semester + studentID + courseName;
     }
 }
+
