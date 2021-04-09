@@ -16,7 +16,6 @@ to do
 
 package librarySystem;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -118,8 +117,9 @@ public class Main{
                 }
                 case "6" : {
                     //refer to getCustomerById() and updateCustomer() in A3!!!!!!!!!!!!!!
-                    //updateEnrollInfo();
-                        break;
+                    String studentId = enterStudentIdPrompt();
+                    updateStudent(studentId);
+                    break;
                 }
                 case "7" : {
                     deleteEnrollInfo();
@@ -303,5 +303,78 @@ public class Main{
 
     }
 
+    public static String enterStudentIdPrompt(){
+        System.out.print("Enter student id : ");
+        Scanner s = new Scanner(System.in);
+        return s.nextLine();
+    }
+
+    public static void updateStudent(String studentId) {
+
+        boolean isUpdated = updateInfo(studentId);
+
+        if(isUpdated){
+            System.out.println("Update successful!");
+        }else{
+            System.out.println("Update failed.");
+        }
+    }
+
+    public static StudentEnrolment getStudentById(String studentId){
+        for (int i = 0; i < seList.size(); i++) {
+            if(studentId.equals(seList.get(i).getStudentID())){
+                return seList.get(i);
+            }
+        }
+        return null;
+    }
+    public static boolean updateInfo(String studentId){
+
+        StudentEnrolment se = getStudentById(studentId);
+
+        if(se == null){
+            return false;
+        }
+
+        printCustomerUpdateManual();
+
+        Scanner s = new Scanner(System.in);
+        boolean isDone = false;
+
+        while(!isDone){
+            String target = s.nextLine();
+
+            switch (target){
+                case "coursename" : {
+                    System.out.println("enter new name : ");
+                    String newName = new Scanner(System.in).nextLine();
+                    se.setCourseName(newName);
+                    break;
+                }
+                case "semester" : {
+                    System.out.println("enter new semester : ");
+                    String newSem = new Scanner(System.in).nextLine();
+                    se.setSemester(newSem);
+                    break;
+                }
+                case "0" : {
+                    isDone = true;
+                    break;
+                }
+                default : {
+                    System.out.println("Wrong Input !");
+                    printCustomerUpdateManual();
+                    break;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static void printCustomerUpdateManual(){
+        System.out.println("Which information you wish to update?");
+        System.out.println("Type 'coursename' or 'semester' to update.");
+        System.out.println("Type '0' when you are done with updating.");
+    }
 
 }
