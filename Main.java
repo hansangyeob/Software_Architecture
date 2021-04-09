@@ -16,6 +16,7 @@ to do
 
 package librarySystem;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -140,7 +141,17 @@ public class Main{
         public static void saveEnrolmentToFile(){
             try{
                 FileWriter fileWriter = new FileWriter("studentEnrolment.csv");
-                fileWriter.write(seList.toString()+"\n"+"\n"+"\t");
+             //   String ls =System.lineSeparator();
+                for(int i = 0; i < seList.size();i++) {
+                    fileWriter.write("  "+i+". ");
+                    fileWriter.write(seList.get(i).getSemester());
+                    fileWriter.write(" / ");
+                    fileWriter.write(seList.get(i).getStudentID());
+                    fileWriter.write(" / ");
+                    fileWriter.write(seList.get(i).getCourseName());
+                    fileWriter.write(System.lineSeparator());
+                }
+
                 fileWriter.close();
                 System.out.println("saved!");
             }catch (IOException e){
