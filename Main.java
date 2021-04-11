@@ -279,7 +279,7 @@ public class Main{
             }
             case "2021B": {
                 seList.removeIf(condition1);
-                System.out.println("2021A enrolment deleted successfully.");
+                System.out.println("2021B enrolment deleted successfully.");
                 break;
             }
             default:{
