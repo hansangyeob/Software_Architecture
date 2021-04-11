@@ -1,18 +1,10 @@
-package A1;
-
 /*
-.Assignment1.
+Assignment 1
 Name : Han sang yeob
 ID: s3821179
 */
 
-/*
-to do list
-* add exception on while function in the main
-*JUnit testing
-* 10 COMMIT TO GITHUB
-* */
-
+package A1;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -72,9 +64,9 @@ public class Main{
         courseList.add(course3);
 
 
-        System.out.println("===Student list===");
+        System.out.println("===Current Student list===");
         printStudents();
-        System.out.println("===Course list===");
+        System.out.println("===Current Course list===");
         printCourses();
         System.out.println("");
 
@@ -114,7 +106,6 @@ public class Main{
                     break;
                 }
                 case "6" : {
-                    //refer to getCustomerById() and updateCustomer() in A3!!!!!!!!!!!!!!
                     String studentId = enterStudentIdPrompt();
                     updateStudent(studentId);
                     break;
@@ -144,7 +135,6 @@ public class Main{
     public static void saveEnrolmentToFile(){
         try{
             FileWriter fileWriter = new FileWriter("studentEnrolment.csv");
-            //   String ls =System.lineSeparator();
             for(int i = 0; i < seList.size();i++) {
                 fileWriter.write("  "+i+". ");
                 fileWriter.write(seList.get(i).getSemester());
@@ -154,30 +144,28 @@ public class Main{
                 fileWriter.write(seList.get(i).getCourseName());
                 fileWriter.write(System.lineSeparator());
             }
-
             fileWriter.close();
-            System.out.println("saved!");
+            System.out.println("Enrollment saved!");
         }catch (IOException e){
-            System.out.println("Error occurred while writing customer to the file.");
+            System.out.println("Error occurred while writing enrolment to the file.");
             e.printStackTrace();
         }
-
     }
 
 
 
     public static void enrolmentManual(){
         System.out.println("[StudentEnrolmentManager]\n" +
-                "===MANAGE STUDENT===\n" +
                 "m : Manual\n"+
-                "1 : Print Students\n" +
-                "2 : Print Courses\n" +
+                "1 : Print Student list\n" +
+                "2 : Print Course list\n" +
                 "3 : Enroll student in semester\n" +
                 "4 : Get all enrolment information\n"+
-                "5 : Get all enrolment in one semester(2021A OR 2021B)\n"+
+                "5 : Get enrolment in one semester(2021A OR 2021B)\n"+
                 "6 : Update enrolment \n"+
                 "7 : Delete enrolment \n"+
-                "8 : Save \n");
+                "8 : Save to csv file\n" +
+                "0 : Exit \n");
     }
 
 
@@ -268,8 +256,6 @@ public class Main{
         if(seList.size()==0){
             System.out.println("The enrolment list is empty.");
             System.out.println("Press '3' to enroll the student.");
-
-
         }
     }
 
@@ -282,10 +268,13 @@ public class Main{
         Predicate<StudentEnrolment> condition = seList -> seList.getSemester().startsWith("2021A");
         Predicate<StudentEnrolment> condition1 = seList -> seList.getSemester().startsWith("2021B");
 
+
         switch (userInputSemester){
+
             case "2021A" : {
-                seList.removeIf(condition);
-                System.out.println("2021A enrolment deleted successfully.");
+                    seList.removeIf(condition);
+                    System.out.println("2021A enrolment deleted successfully.");
+
                 break;
             }
             case "2021B": {
@@ -299,11 +288,10 @@ public class Main{
                 break;
             }
         }
-
     }
 
     public static String enterStudentIdPrompt(){
-        System.out.print("Enter student id : ");
+        System.out.print("Enter student ID : ");
         Scanner s = new Scanner(System.in);
         return s.nextLine();
     }
@@ -327,6 +315,7 @@ public class Main{
         }
         return null;
     }
+
     public static boolean updateInfo(String studentId){
 
         StudentEnrolment se = getStudentById(studentId);
@@ -335,7 +324,7 @@ public class Main{
             return false;
         }
 
-        printCustomerUpdateManual();
+        printStudentUpdateManual();
 
         Scanner s = new Scanner(System.in);
         boolean isDone = false;
@@ -345,13 +334,13 @@ public class Main{
 
             switch (target){
                 case "coursename" : {
-                    System.out.println("enter new name : ");
+                    System.out.println("Enter new course name : ");
                     String newName = new Scanner(System.in).nextLine();
                     se.setCourseName(newName);
                     break;
                 }
                 case "semester" : {
-                    System.out.println("enter new semester : ");
+                    System.out.println("Enter new semester : ");
                     String newSem = new Scanner(System.in).nextLine();
                     se.setSemester(newSem);
                     break;
@@ -362,8 +351,8 @@ public class Main{
                 }
 
                 default : {
-                    System.out.println("Wrong Input !");
-                    printCustomerUpdateManual();
+                    System.out.println("Wrong Input!");
+                    printStudentUpdateManual();
                     break;
                 }
             }
@@ -371,7 +360,7 @@ public class Main{
         return true;
     }
 
-    public static void printCustomerUpdateManual(){
+    public static void printStudentUpdateManual(){
         System.out.println("Which information you wish to update?");
         System.out.println("Type 'coursename' or 'semester' to update.");
         System.out.println("Type '0' when you are done with updating.");

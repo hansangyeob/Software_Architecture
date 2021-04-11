@@ -115,16 +115,6 @@ class MainTest {
         Assertions.assertEquals(0,seL.size());
     }
 
-    @Test
-    void getStudentById() {
-
-    }
-
-    @Test
-    void updateInfo() {
-
-    }
-
     @AfterEach
     public void tearDown(){
         System.out.println("Should execute After each Test.");

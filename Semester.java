@@ -2,12 +2,9 @@ package A1;
 
 public class Semester {
 
-
     private String sem;
 
-
     public Semester(){}
-
 
     public String getSem() {
         return sem;
@@ -16,6 +13,7 @@ public class Semester {
     public void setSem(String sem1) {
         this.sem = sem;
     }
+
 
 
 }
